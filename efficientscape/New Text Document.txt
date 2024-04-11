@@ -1,0 +1,11 @@
+CREATE DATABASE efficientscapedb;
+USE efficientscapedb;
+CREATE TABLE users (
+id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR (128) NOT NULL,
+password VARCHAR (255) NOT NULL,
+email VARCHAR (127) NOT NULL,
+privileges INT(1),
+UNIQUE (username),
+UNIQUE (email)
+);

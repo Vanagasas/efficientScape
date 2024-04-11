@@ -1,0 +1,128 @@
+DROP DATABASE efficientscapedb;
+CREATE DATABASE efficientscapedb;
+USE efficientscapedb;
+CREATE TABLE users (
+    userid INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR (128) NOT NULL,
+    password VARCHAR (255) NOT NULL,
+    email VARCHAR (127) NOT NULL,
+    privileges INT(1),
+    UNIQUE (username),
+    UNIQUE (email)
+);
+CREATE TABLE study (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE,
+    xp INT(32) UNSIGNED DEFAULT 0,
+    lvl INT(8) UNSIGNED DEFAULT 1,
+    streak INT(16) UNSIGNED DEFAULT 0,
+    projects INT(16) UNSIGNED DEFAULT 0,
+    html INT(16) UNSIGNED DEFAULT 0,
+    php INT(16) UNSIGNED DEFAULT 0,
+    other INT(16) UNSIGNED DEFAULT 0,
+    extra INT(16) UNSIGNED DEFAULT 0
+);
+CREATE TABLE work (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE,
+    xp INT(32) UNSIGNED DEFAULT 0,
+    lvl INT(8) UNSIGNED DEFAULT 1,
+    streak INT(16) UNSIGNED DEFAULT 0,
+    extra INT(16) UNSIGNED DEFAULT 0,
+    coins INT(16) UNSIGNED DEFAULT 0
+);
+CREATE TABLE health (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE,
+    xp INT(32) UNSIGNED DEFAULT 0,
+    lvl INT(8) UNSIGNED DEFAULT 1,
+    streak INT(16) UNSIGNED DEFAULT 0,
+    smoke INT(16) UNSIGNED DEFAULT 0,
+    energy INT(16) UNSIGNED DEFAULT 0
+);
+CREATE TABLE sport (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE,
+    xp INT(32) UNSIGNED DEFAULT 0,
+    lvl INT(8) UNSIGNED DEFAULT 1,
+    streak INT(16) UNSIGNED DEFAULT 0,
+    pr INT(16) UNSIGNED DEFAULT 0,
+    kg INT(16) UNSIGNED DEFAULT 0
+);
+
+CREATE TABLE articles (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR (128) NOT NULL,
+    content VARCHAR (65535) NOT NULL
+);
+CREATE TABLE achievments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(128) NOT NULL,
+    content VARCHAR(256) NOT NULL,
+    req INT(8) NOT NULL,
+    reward int(32) NOT NULL,
+    cat VARCHAR(16),
+    targets VARCHAR(16)
+);
+CREATE TABLE userAchievments (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    acid INT,
+    FOREIGN KEY (acid) REFERENCES achievments(id) ON DELETE CASCADE,
+    userid INT,
+    FOREIGN KEY (userid) REFERENCES users(userid) ON DELETE CASCADE,
+    completed TINYINT DEFAULT 0,
+    cat VARCHAR(16) 
+);
+
+
+
+
+
+
+
+
+
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('Getting studied', 
+                                                            'Get dailies 5 days streak in Study category.',
+                                                            5, 500, 'study', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('Getting started workin', 
+                                                            'Get dailies 5 days streak in Work category.',
+                                                            5, 500, 'work', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('Getting healthier', 
+                                                            'Get dailies 5 days streak in Health category.',
+                                                            5, 500, 'health', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('Getting pumped up', 
+                                                            'Get dailies 5 days streak in Sport category.',
+                                                            5, 500, 'sport', 'streak');
+
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('A whole month of this?', 
+                                                            'Get dailies 30 days streak in Study category',
+                                                            30, 2000, 'study', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('A whole month of this?', 
+                                                            'Get dailies 30 days streak in Work category',
+                                                            30, 2000, 'work', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('A whole month of this?', 
+                                                            'Get dailies 30 days streak in Health category',
+                                                            30, 2000, 'health', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('A whole month of this?', 
+                                                            'Get dailies 30 days streak in Sport category',
+                                                            30, 2000, 'sport', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('Start of something great', 
+                                                            'Get dailies 5 days streak in All categories',
+                                                            5, 1000, 'other', 'streak');
+INSERT INTO achievments (title, content, req, reward, cat, targets) VALUES ('It does get easier', 
+                                                            'Get dailies 30 days streak in All categories',
+                                                            30, 3000, 'other', 'streak');
+
+
+
+
+INSERT INTO articles (title, content) VALUES ('Efficient scpae methods', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.');
+INSERT INTO articles (title, content) VALUES ('LOREM IPSUM', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.');
+INSERT INTO articles (title, content) VALUES ('new post', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.');
+INSERT INTO articles (title, content) VALUES ('last post', 'Efficiency is important');
+INSERT INTO articles (title, content) VALUES ('Newest post', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.');
